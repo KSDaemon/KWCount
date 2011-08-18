@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>KWCount plugin test page</title>
+<link href="kwcount.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script type="text/javascript" src="kwcount.js"></script>
+<script type="text/javascript">
+$(function () {
+	$('input[type="text"],textarea').kwcount();
+});
+</script>
+</head>
+<body>
+<form name="beer_info" method="post" action="setters/Beer.php">
+<input type="Hidden" name="beer_id" value="">
+<input type="Hidden" name="action_id" value="">
+<input type="Hidden" name="picture_id" value="NULL">
+<input type="Hidden" name="old_trademark" value="">
+<input type="Hidden" name="old_country" value="">
+<div>
+	<table class="edit_info">
+		<tr>
+			<td class="right"><label for="beer_name">Название сорта пива</label></td>
+			<td class="left"><input class="mega_wide validate(required)" type="text" name="beer_name" maxlength="255" tabindex="1"></td>
+		</tr>
+		<tr>
+			<td class="right"><label for="short_text">Краткое описание</label></td>
+			<td class="left"><input class="mega_wide validate(required)" type="text" name="short_text" maxlength="255" tabindex="4"></td>
+		</tr>
+		<tr>
+			<td colspan="2" class="center">
+				<textarea name="html_text" rows="10" cols="70" maxlength="2000" class="html_info validate(required)" tabindex="8"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td class="right"><label for="density">Плотность</label></td>
+			<td class="left"><input class="mega_wide" type="text" name="density" maxlength="3" tabindex="9"></td>
+		</tr>
+		<tr>
+			<td class="right"><label for="strength">Крепость</label></td>
+			<td class="left"><input class="mega_wide" type="text" name="strength" maxlength="3" tabindex="10"></td>
+		</tr>
+		<tr>
+			<td class="right"><label for="composition">Состав</label></td>
+			<td class="left"><input class="mega_wide" type="text" name="composition" maxlength="2000" tabindex="11"></td>
+		</tr>
+		<tr>
+			<td class="right"><label for="keeping_time">Срок хранения</label></td>
+			<td class="left"><input class="mega_wide" type="text" name="keeping_time" maxlength="127" tabindex="14"></td>
+		</tr>
+		<tr>
+			<td class="right"><label for="keeping_conditions">Условия хранения</label></td>
+			<td class="left"><input class="mega_wide" type="text" name="keeping_conditions" maxlength="512" tabindex="15"></td>
+		</tr>
+		<tr>
+			<td class="right"><label for="production_date">Дата(ы) производства</label></td>
+			<td class="left"><input class="mega_wide" type="text" name="production_date" maxlength="30" tabindex="16"></td>
+		</tr>
+		<tr>
+			<td class="right"><label for="official_site">Официальный сайт</label></td>
+			<td class="left"><input class="mega_wide" type="text" name="official_site" maxlength="255" tabindex="17"></td>
+		</tr>
+		<tr>
+			<td class="right"><label for="keywords">Ключевые слова (в тэг &lt;meta&gt;)</label></td>
+			<td class="left"><input class="mega_wide" type="text" name="keywords" maxlength="2000" tabindex="18"></td>
+		</tr>
+		<tr>
+			<td class="right"><label for="page_description">Краткое описание (в тэг &lt;meta&gt;)</label></td>
+			<td class="left"><input class="mega_wide validate(required)" type="text" name="page_description" maxlength="160" tabindex="19"></td>
+		</tr>
+		<tr>
+			<td class="right"><label for="page_url_part">URL сорта в транслите</label></td>
+			<td class="left"><input class="mega_wide validate(required)" type="text" name="page_url_part" maxlength="100" tabindex="20"></td>
+		</tr>
+		<tr>
+			<td class="right"><label for="pic_title">Описание картинки (title)</label></td>
+			<td class="left"><input class="mega_wide" type="text" name="pic_title" maxlength="255" tabindex="23"></td>
+		</tr>
+		<tr>
+			<td class="right"><label for="pic_alt">Текст для тэга &lt;alt&gt;</label></td>
+			<td class="left"><input class="mega_wide validate(required)" type="text" name="pic_alt" maxlength="255" tabindex="24"></td>
+		</tr>
+		<tr>
+			<td class="right"><label for="publish_date">Дата публикации</label></td>
+			<td class="left"><input class="mega_wide validate(required)" type="text" name="publish_date" maxlength="20" tabindex="25"></td>
+		</tr>
+		<tr>
+			<td class="right"><label for="modify_date">Дата редактирования</label></td>
+			<td class="left"><input class="mega_wide" type="text" name="modify_date" maxlength="20" tabindex="26" readonly></td>
+		</tr>
+	</table>
+</div>
+</form>
+</body>
+</html>
