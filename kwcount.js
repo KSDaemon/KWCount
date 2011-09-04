@@ -86,10 +86,12 @@
 				case 'remove':
 					return this.each(function () {
 						var that = $(this);
+						that.unbind('.kwc');
 						$('#' + that.data('kwc-container-id')).remove();
 					});
 					break;
 				case 'removeall':
+					$('input[type="text"],textarea').unbind('.kwc');
 					$('.kwc-container').remove();
 					return this;
 					break;
@@ -114,8 +116,8 @@
 					initialPositionContainer(contnr, that);
 				});
 					
-				$(this)
-					.focus(function () {
+				$(this).bind({
+					'focus.kwc': function () {
 						initialPositionContainer(contnr, that);
 						showCount(contnr, that.val(), max);
 	
@@ -127,8 +129,8 @@
 				     
 						positionContainer(contnr, that);
 						
-					})
-					.blur(function () {
+					},
+					'blur.kwc': function () {
 						var tmr; 
 						
 						tmr = window.setTimeout(
@@ -140,8 +142,8 @@
 										}
 									}, 
 									settings.hide_delay);
-					});
-				$(this).bind('keyup change paste', function () {
+					}})
+					.bind('keyup.kwc change.kwc paste.kwc', function () {
 						showCount(contnr, that.val(), max);
 					});
 			});
