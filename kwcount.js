@@ -3,7 +3,7 @@
 * Provides a character/word counter for any text input or textarea
 * 
 * @version  0.0.1
-* @homepage http://github.com/aaronrussell/jquery-simply-countable/
+* @homepage https://github.com/KSDaemon/KWCount/
 * @author   Konstantin Burkalev 
 * @email 	kostik@ksdaemon.ru
 * @site 		http://blog.ksdaemon.ru
@@ -67,53 +67,87 @@
 			container.find('.kwc-text').html(txt);
 		};
 		
-		return this.each(function () { 
-			var that = $(this);
-			var visibleContainer = false;
-			var max = $(this).attr('maxlength') ? $(this).attr('maxlength') : 
-								$(this).data('maxlength') ? $(this).data('maxlength') : '?';
-			
-			var contnr = etalon_container.clone().appendTo('body');
-			contnr.click(function () {
-					hideContainer($(this));
-				});
-
-			$(window).resize(function() {
-				initialPositionContainer(contnr, that);
-			});
-				
-			$(this)
-				.focus(function () {
-					initialPositionContainer(contnr, that);
-					showCount(contnr, that.val(), max);
-
-					if(!visibleContainer)
-					{
-						showContainer(contnr);
-						visibleContainer = true;
-					}
-			     
-					positionContainer(contnr, that);
-					
-				})
-				.blur(function () {
-					var tmr; 
-					
-					tmr = window.setTimeout(
-								function () { 
-									hideContainer(contnr); 
-									visibleContainer = false;
-									if (tmr) {
-										window.clearTimeout(tmr);
-									}
-								}, 
-								settings.hide_delay);
-				});
-			$(this).bind('keyup change paste', function () {
-					showCount(contnr, that.val(), max);
-				});
-		});
+		function getRandomNum (lbound, ubound) {
+			return (Math.floor(Math.random() * (ubound - lbound)) + lbound);
+		};
 		
+		function getRandomId () {
+			var i, l = 5, ri = '', charSet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', cl;
+			cl = charSet.length;
+			for (i = 0; i < l; i++) {
+				ri = ri + charSet.charAt(getRandomNum(0, cl));;
+			}
+		
+			return ri;
+		}
+		
+		if(typeof(params) == 'string') {			// i think wa want to call some service method.
+			switch(params) {
+				case 'remove':
+					return this.each(function () {
+						var that = $(this);
+						$('#' + that.data('kwc-container-id')).remove();
+					});
+					break;
+				case 'removeall':
+					$('.kwc-container').remove();
+					return this;
+					break;
+			}
+		}
+		else {				// assume wa want to initialize.
+			
+			return this.each(function () { 
+				var that = $(this);
+				var visibleContainer = false;
+				var max = $(this).attr('maxlength') ? $(this).attr('maxlength') : 
+									$(this).data('maxlength') ? $(this).data('maxlength') : '?';
+				var random_id = getRandomId();
+				var contnr = etalon_container.clone().attr('id', random_id).appendTo('body');
+				that.data('kwc-container-id', random_id);
+				
+				contnr.click(function () {
+						hideContainer($(this));
+					});
+	
+				$(window).resize(function() {
+					initialPositionContainer(contnr, that);
+				});
+					
+				$(this)
+					.focus(function () {
+						initialPositionContainer(contnr, that);
+						showCount(contnr, that.val(), max);
+	
+						if(!visibleContainer)
+						{
+							showContainer(contnr);
+							visibleContainer = true;
+						}
+				     
+						positionContainer(contnr, that);
+						
+					})
+					.blur(function () {
+						var tmr; 
+						
+						tmr = window.setTimeout(
+									function () { 
+										hideContainer(contnr); 
+										visibleContainer = false;
+										if (tmr) {
+											window.clearTimeout(tmr);
+										}
+									}, 
+									settings.hide_delay);
+					});
+				$(this).bind('keyup change paste', function () {
+						showCount(contnr, that.val(), max);
+					});
+			});
+		
+		}	// end if-else
+	
 	};
 	
 })(jQuery);

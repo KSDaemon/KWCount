@@ -1,0 +1,50 @@
+@CHARSET "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+	background-color: #F4EAD5;
+	color: #556270;
+	font-family: 'Helvetica',Arial,sans-serif;
+	font-size: 100%;
+	line-height: 1.5;	
+}
+
+h1 {
+	font-family: 'Corben',Helvetica,Arial,sans-serif;
+	color: #007200;
+	font-weight: bold;
+}
+
+A {
+	color: #007200;
+	text-decoration: none;
+}
+
+A:hover {
+	text-decoration: underline;	
+}
+
+ul, ol {
+	margin: 0 auto;	
+}
+
+LI {
+	list-style: disc inside;
+	margin-left: 5px;
+}
+
+.header > DIV, .content > DIV {
+	margin: 0 auto;
+	padding: 30px;
+	width: 600px;
+	border-bottom: 1px solid #CCC;
+}
+
+p.source {
+	font-size: 80%;
+	color: #007200;
+}
