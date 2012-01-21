@@ -5,11 +5,16 @@
 <title>KWCount plugin test page</title>
 <link href="style.css" rel="stylesheet" type="text/css">
 <link href="kwcount.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
 <script type="text/javascript" src="kwcount.js"></script>
 <script type="text/javascript">
 $(function () {
-	$('input[type="text"],textarea').kwcount();
+	$('#input1,#input2').kwcount();
+	$('#input3,#input4').kwcount({ show_max: false });
+	$('#input5,#input6').kwcount({ limit: true });
+	$('#input7').kwcount({ maxlength: 25, limit: true });
+	$('#input8').kwcount({ maxlength: 45, limit: true });
+	$('#input9').kwcount({ count_type: 'words' });
 });
 </script>
 </head>
@@ -33,14 +38,14 @@ $(function () {
 			</p>
 			<p class="source">
 				&lt;link href="kwcount.css" rel="stylesheet" type="text/css"&gt;<br/>
-				&lt;script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"&gt;&lt;/script&gt;<br/>
+				&lt;script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"&gt;&lt;/script&gt;<br/>
 				&lt;script type="text/javascript" src="kwcount.js"&gt;&lt;/script&gt;<br/>
 			</p>
 			<p>
 				After that, initialize a plugin on inputs and textareas like this:
 			</p>
 			<p class="source">
-				$('input[type="text"],textarea').kwcount();
+				$('#input1,#input2').kwcount();
 			</p>
 			<p>
 				KWCount plugin can use 2 sources for maximum characters value:
@@ -52,10 +57,72 @@ $(function () {
 				</ul>
 			</p>
 			<p>
-				<input type="text" name="default_counting" maxlength="25" class="wide" tabindex="1">
-				<textarea name="html_text" rows="10" cols="70" maxlength="160" class="html_info" tabindex="2"></textarea>
+				<input type="text" id="input1" name="input1" maxlength="25" class="wide" tabindex="1">
+				<textarea id="input2" name="input2" rows="10" cols="70" maxlength="160" class="html_info" tabindex="2"></textarea>
 			</p>
 		</div>	
+		<div>
+			<h3>Possible options.</h3>
+			<p>
+				KWCount can take some options when initializing.
+				<ul>
+					<li><strong>hide_delay</strong> - delay before hiding message (in ms). <br/>&nbsp;&nbsp;Default value: 2000.</li>
+					<li><strong>count_type</strong> - counter type. <br/>&nbsp;&nbsp;Possible values: 'chars' | 'words'. <br/>&nbsp;&nbsp;Default value: 'chars'.</li>
+					<li><strong>show_max</strong> - show possible maximum chars if exits. <br/>&nbsp;&nbsp;Possible values: true | false. <br/>&nbsp;&nbsp;Default value: true.</li>
+					<li><strong>limit</strong> - limit input for chars above maximum. <br/>&nbsp;&nbsp;Possible values: true | false. <br/>&nbsp;&nbsp;Default value: false.</li>
+					<li><strong>maxlength</strong> - if you want to manualy set maxlength parameter (useful when counting words). <br/>&nbsp;&nbsp;Default value: 0, that means to get maxlength from attributes.</li>
+				</ul>
+			</p>
+		</div>
+		<div>
+			<h3>More examples.</h3>
+			<p>
+				Showing only number of current chars, without maximum.
+			</p>
+			<p class="source">
+				$('#input3,#input4').kwcount({ show_max: false });
+			</p>
+			<p>
+				<input type="text" id="input3" name="input3" maxlength="25" class="wide" tabindex="3" value="some value">
+				<textarea id="input4" name="input4" rows="10" cols="70" maxlength="160" class="html_info" tabindex="4">There is some text allready in the field.</textarea>
+			</p>
+			<p><br/>
+			</p>
+			<p>
+				Prevent inputing chars after maximum count is reached. It's usefull when no maxlength attribute is specified on element.  
+			</p>
+			<p class="source">
+				$('#input5,#input6').kwcount({ limit: true });
+			</p>
+			<p>
+				<input type="text" id="input5" name="input5" data-maxlength="15" class="wide" tabindex="5" value="some value">
+				<textarea id="input6" name="input6" rows="10" cols="70" data-maxlength="50" class="html_info" tabindex="6">There is some text allready in the field.</textarea>
+			</p>
+			<p><br/>
+			</p>
+			<p>
+				Set maxlength manualy, when initializing, ignoring element attributes and prevent inputing chars after maximum count is reached.
+			</p>
+			<p class="source">
+				$('#input7').kwcount({ maxlength: 25, limit: true });</br>
+				$('#input8').kwcount({ maxlength: 45, limit: true });
+			</p>
+			<p>
+				<input type="text" id="input7" name="input7" maxlength="50" class="wide" tabindex="7" value="attr maxlength=50">
+				<textarea id="input8" name="input8" rows="10" cols="70" maxlength="50" class="html_info" tabindex="8">My maxlength attribute is set to 50.</textarea>
+			</p>
+			<p><br/>
+			</p>
+			<p>
+				Counting words instead of characters. If you do not set show_max to false, than a question mark will be showed instead of a maximum value.
+			</p>
+			<p class="source">
+				$('#input9').kwcount({ count_type: 'words' });
+			</p>
+			<p>
+				<textarea id="input9" name="input9" rows="10" cols="70" class="html_info" tabindex="9">Lets show words count in this textarea</textarea>
+			</p>
+		</div>
 		<div>
 			<h3>License</h3>
 			<p>KWCount plugin licensed under the <a target="_blank" href="http://www.opensource.org/licenses/mit-license.php">MIT</a> and 
