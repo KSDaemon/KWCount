@@ -22,13 +22,13 @@ $(function () {
 	<div class="header">
 		<div>
 			<h1>KWCount</h1>
-			A small and fancy jQuery plugin for displaying char counts for inputs and textarea.
+			A small and fancy jQuery plugin for displaying char counts for inputs and textareas.
 		</div>
 	</div>
 	<div class="content">
 		<div>
-			Some times when we fill forms, we have restrictions on field characters count. 
-			For example, short description should be less then 160. How can we inform user about how many char left? 
+			Some times, when we fill forms, we have restrictions on field characters count. 
+			For example, short description should be less then 160. How can we inform user about how many chars left? 
 			This simple plugin provides a cool way of information about that. Try it yourself!
 		</div>
 		<div>
@@ -48,10 +48,11 @@ $(function () {
 				$('#input1,#input2').kwcount();
 			</p>
 			<p>
-				KWCount plugin can use 2 sources for maximum characters value:
+				KWCount plugin can use 3 sources for maximum characters value:
 			</p>
 			<p>
 				<ul>
+					<li>Input parameter when initializing</li>
 					<li>Element maxlength attribute</li>
 					<li>Element data-maxlength attribute</li>
 				</ul>
