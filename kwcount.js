@@ -19,7 +19,8 @@
 		var settings = $.extend({
 				hide_delay: 2000,			//	delay before hiding message
 				count_type: 'chars',		//	counter type, possible values: chars | words
-				show_max: true 			// show possible maximum chars if exits
+				show_max: true, 			// show possible maximum chars if exits
+				limit: false				// Limit input for chars above maximum
 			}, params);
 			
 		var etalon_container = $('<div>', {
@@ -28,6 +29,7 @@
 		});
 			
 		function showContainer (container) {
+			container.css('z-index', parseInt(container.css('z-index'), 10) + 1);	// For bubbling up if going to prev input
 			container.fadeIn();
 		};
   
@@ -65,6 +67,18 @@
 			}
 			
 			container.find('.kwc-text').html(txt);
+			
+			if(settings.limit) {
+				return checkLimit(value, max);
+			}
+		};
+		
+		function checkLimit (value, max) {
+			if(value.length >= max) {
+				return false;
+			}
+			
+			return true;
 		};
 		
 		function getRandomNum (lbound, ubound) {
@@ -102,8 +116,8 @@
 			return this.each(function () { 
 				var that = $(this);
 				var visibleContainer = false;
-				var max = $(this).attr('maxlength') ? $(this).attr('maxlength') : 
-									$(this).data('maxlength') ? $(this).data('maxlength') : '?';
+				var max = that.attr('maxlength') > 0 ? that.attr('maxlength') : 				// Checking for > 0 because textarea return -1 if not set
+									(that.data('maxlength') ? that.data('maxlength') : '?');
 				var random_id = getRandomId();
 				var contnr = etalon_container.clone().attr('id', random_id).appendTo('body');
 				that.data('kwc-container-id', random_id);
@@ -144,8 +158,12 @@
 									settings.hide_delay);
 					}})
 					.bind('keyup.kwc change.kwc paste.kwc', function () {
-						showCount(contnr, that.val(), max);
+						return showCount(contnr, that.val(), max);
 					});
+					
+				if(settings.limit) {
+					$(this).bind('keypress.kwc', function () { return checkLimit(that.val(), max); });
+				}
 			});
 		
 		}	// end if-else
